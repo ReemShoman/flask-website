@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 class="mb-4">Edit Post</h2>
+
+<form method="POST" enctype="multipart/form-data" class="p-4 border rounded shadow-sm bg-light">
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    <input type="text" name="title" value="{{ post.title }}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Content</label>
+    <textarea name="content" class="form-control" rows="4" required>{{ post.content }}</textarea>
+  </div>
+  {% if post.image %}
+    <div class="mb-3">
+      <label class="form-label d-block">Current Image</label>
+      <img src="{{ url_for('static', filename='pics/' + post.image) }}" width="200" class="img-thumbnail">
+    </div>
+  {% endif %}
+  <div class="mb-3">
+    <label class="form-label">Replace Image</label>
+    <input type="file" name="image" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endblock %}
