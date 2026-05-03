@@ -1,0 +1,21 @@
+# Blueprint for https://render.com — link repo then use "Blueprint" deploy, or create Web Service + PostgreSQL manually.
+databases:
+  - name: flask-website-db
+    plan: free
+    databaseName: flaskblog
+    user: flaskwebsite
+
+services:
+  - type: web
+    name: flask-website
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: mkdir -p static/pics && gunicorn app:app --bind 0.0.0.0:$PORT
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: flask-website-db
+          property: connectionString

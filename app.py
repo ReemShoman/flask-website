@@ -175,6 +175,9 @@ def not_found(e):
     return render_template('404.html'), 404
 
 if __name__ == '__main__':
-    if not os.path.exists('static/pics'):
-        os.makedirs('static/pics')
-    app.run(debug=True)
+    pics = os.path.join('static', 'pics')
+    if not os.path.exists(pics):
+        os.makedirs(pics)
+    port = int(os.environ.get('PORT', 5000))
+    debug = os.environ.get('FLASK_ENV') == 'development'
+    app.run(host='0.0.0.0', port=port, debug=debug)

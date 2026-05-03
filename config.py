@@ -1,4 +1,4 @@
 import os
 
 UPLOAD_FOLDER = os.path.join('static', 'pics')
-SECRET_KEY = 'secret123' 
+SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-only-change-me')
